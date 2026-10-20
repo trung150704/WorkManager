@@ -1,3 +1,4 @@
+HEAD
 # WorkManager - App Nhắc Nhở Uống Thuốc & Công Việc
 
 Ứng dụng Android nhắc nhở lịch uống thuốc, theo dõi kho thuốc và quản lý công việc/học tập lặp lại, được phát triển bằng **Jetpack Compose**, **Material 3**, **Room Database**, **WorkManager** và **Hilt**.
@@ -18,3 +19,6 @@ Xem tài liệu review chi tiết cho đội ngũ phát triển tại: **[PROJEC
 - **Room Database** & **KSP**
 - **WorkManager** & **Hilt Work**
 - **Navigation Compose**, **Coroutines & Flow**
+
+# WorkManager
+7e17545df0d3bb23afa5c3cb3452c9615a5df016
