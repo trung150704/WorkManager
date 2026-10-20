@@ -1,0 +1,82 @@
+<resources>
+    <string name="app_name">WorkManager</string>
+    <string name="list_title">Nhắc nhở</string>
+    <string name="add_reminder">Thêm nhắc nhở</string>
+    <string name="edit_reminder">Sửa nhắc nhở</string>
+    <string name="back">Quay lại</string>
+    <string name="empty_title">Chưa có nhắc nhở nào</string>
+    <string name="empty_hint">Bấm nút + để thêm lịch uống thuốc hoặc lịch học</string>
+    <string name="reminder_deleted">Đã xoá nhắc nhở</string>
+    <string name="undo">Hoàn tác</string>
+    <string name="delete">Xoá</string>
+    <string name="every_day">Mỗi ngày</string>
+
+    <string name="field_title">Tiêu đề</string>
+    <string name="field_note">Ghi chú</string>
+    <string name="field_dosage">Liều lượng (vd: 1 viên)</string>
+    <string name="field_remaining">Số lượng còn lại</string>
+    <string name="field_time">Giờ nhắc</string>
+    <string name="field_days">Lặp lại vào</string>
+    <string name="field_start_date">Ngày bắt đầu</string>
+    <string name="field_end_date">Ngày kết thúc</string>
+    <string name="no_end_date">Không kết thúc</string>
+    <string name="clear">Xoá ngày kết thúc</string>
+
+    <string name="type_medicine">Uống thuốc</string>
+    <string name="type_study">Học tập</string>
+
+    <string name="error_title_required">Vui lòng nhập tiêu đề</string>
+    <string name="error_days_required">Chọn ít nhất một ngày</string>
+    <string name="error_end_before_start">Ngày kết thúc phải sau hoặc bằng ngày bắt đầu</string>
+    <string name="error_quantity_invalid">Số lượng phải là số nguyên không âm</string>
+
+    <string name="save">Lưu</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Huỷ</string>
+    <string name="select_time">Chọn giờ</string>
+
+    <string-array name="day_short">
+        <item>T2</item>
+        <item>T3</item>
+        <item>T4</item>
+        <item>T5</item>
+        <item>T6</item>
+        <item>T7</item>
+        <item>CN</item>
+    </string-array>
+    <string name="channel_medicine_name">Nhắc uống thuốc</string>
+    <string name="channel_medicine_desc">Thông báo khi đến giờ uống thuốc</string>
+    <string name="channel_study_name">Nhắc học</string>
+    <string name="channel_study_desc">Thông báo khi đến giờ học</string>
+    <string name="notif_text_medicine">Đã đến giờ uống thuốc</string>
+    <string name="notif_text_study">Đã đến giờ học</string>
+    <string name="action_taken_medicine">Đã uống</string>
+    <string name="action_taken_study">Đã học</string>
+    <string name="action_snooze">Nhắc lại 10 phút</string>
+    <string name="action_skip">Bỏ qua</string>
+
+    <string name="history_title">Lịch sử</string>
+    <string name="history_empty">Chưa có lịch sử. Hãy bấm nút trên thông báo khi đến giờ.</string>
+    <string name="history_scheduled_at">Đến hạn: %1$s</string>
+    <string name="history_summary">Hoàn thành %1$d · Bỏ qua %2$d · Hoãn %3$d</string>
+    <string name="status_taken">Hoàn thành</string>
+    <string name="status_skipped">Bỏ qua</string>
+    <string name="status_snoozed">Đã hoãn</string>
+    <string name="status_missed">Bỏ lỡ</string>
+
+    <string name="channel_stock_name">Cảnh báo thuốc sắp hết</string>
+    <string name="channel_stock_desc">Thông báo khi số thuốc còn lại ít</string>
+    <string name="stock_low_title">Thuốc sắp hết: %1$s</string>
+    <string name="stock_low_text">Chỉ còn %1$d. Hãy chuẩn bị mua thêm hoặc tái khám.</string>
+    <string name="stock_empty_text">Đã hết thuốc. Hãy mua thêm hoặc đi tái khám.</string>
+
+    <string name="stats_title">7 ngày qua</string>
+    <string name="stats_rate">Tuân thủ %1$d%%</string>
+    <string name="stats_no_data">Chưa có dữ liệu</string>
+    <string name="stats_detail">Hoàn thành %1$d · Bỏ qua %2$d · Bỏ lỡ %3$d</string>
+
+    <string name="battery_help_title">Để nhắc nhở đúng giờ</string>
+    <string name="battery_help_message">Một số máy (Xiaomi, Oppo, Vivo, Huawei, Samsung) tự tắt ứng dụng chạy nền để tiết kiệm pin, khiến nhắc nhở bị trễ hoặc không hiện.\n\n1. Bấm "Mở cài đặt pin" và chọn "Không hạn chế" / "Cho phép chạy nền" cho ứng dụng này.\n2. Nếu máy có mục "Tự khởi động" (Autostart), hãy bật nó.</string>
+    <string name="battery_help_open">Mở cài đặt pin</string>
+    <string name="battery_help_icon">Hướng dẫn pin</string>
+</resources>
