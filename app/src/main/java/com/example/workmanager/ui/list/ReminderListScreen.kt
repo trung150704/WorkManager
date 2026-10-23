@@ -234,7 +234,7 @@ fun ReminderListScreen(
                     },
                     text = {
                         Text(
-                            "+ Thêm nhắc nhở",
+                            stringResource(R.string.add_reminder),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
                         )
@@ -380,19 +380,19 @@ private fun HorizontalDateSelector(
 // 2. Màu Pastel Accent cho từng Thẻ Reminder
 @Composable
 private fun getPastelCardColor(id: Long, isActive: Boolean, darkTheme: Boolean): Color {
-    if (!isActive) return MaterialTheme.colorScheme.surfaceContainerHigh
+    if (!isActive) return if (darkTheme) Color(0xFF1E293B) else Color(0xFFF1F5F9)
 
     val colorsLight = listOf(
-        Color(0xFFFFF9C4), // Vàng nhạt
-        Color(0xFFFFE0B2), // Cam nhạt
-        Color(0xFFF3E5F5), // Tím nhạt
-        Color(0xFFE0F7FA)  // Xanh dương nhạt
+        Color(0xFFFFFFFF), // Clear White with border
+        Color(0xFFF0FDF4), // Mint Emerald Tint
+        Color(0xFFEFF6FF), // Ice Blue Tint
+        Color(0xFFF5F3FF)  // Soft Violet Tint
     )
     val colorsDark = listOf(
-        Color(0xFF332D00),
-        Color(0xFF331D00),
-        Color(0xFF261233),
-        Color(0xFF002B30)
+        Color(0xFF111827),
+        Color(0xFF064E3B).copy(alpha = 0.3f),
+        Color(0xFF1E3A8A).copy(alpha = 0.3f),
+        Color(0xFF312E81).copy(alpha = 0.3f)
     )
 
     val index = (id % 4).toInt()
@@ -627,10 +627,13 @@ private fun ReminderItem(
                 }
             }
 
-            // Thanh tiến trình thuốc còn lại (Fix số lượng thuốc linh hoạt, không bị bó hẹp mức 10)
+            // Thanh tiến trình thuốc còn lại (Tỷ lệ % chính xác theo số lượng ban đầu/hiện có)
             reminder.remainingQty?.let { qty ->
                 Spacer(Modifier.height(10.dp))
-                StockProgressBar(remainingQty = qty)
+                StockProgressBar(
+                    remainingQty = qty,
+                    initialQty = reminder.initialQty
+                )
             }
 
             if (reminder.note.isNotBlank()) {
@@ -647,53 +650,63 @@ private fun ReminderItem(
     }
 }
 
-// Dynamic Tiến trình số lượng thuốc linh hoạt theo giá trị người dùng nhập (không bị giới hạn cứng ở mức 10)
+// Tiến trình số lượng thuốc linh hoạt & chính xác tỷ lệ % (dựa trên số lượng ban đầu)
 @Composable
 private fun StockProgressBar(
-    remainingQty: Int
+    remainingQty: Int,
+    initialQty: Int? = null
 ) {
-    // Tự động điều chỉnh thang đo phù hợp với số lượng thuốc hiện có (10, 30, 50, 100...)
-    val scale = when {
-        remainingQty <= 10 -> 10
-        remainingQty <= 30 -> 30
-        remainingQty <= 50 -> 50
-        else -> 100
-    }
-    val progress = (remainingQty.toFloat() / scale).coerceIn(0f, 1f)
+    val total = maxOf(initialQty ?: remainingQty, remainingQty, 1)
+    val progress = (remainingQty.toFloat() / total).coerceIn(0f, 1f)
     val isLow = remainingQty <= StockRules.LOW_THRESHOLD
 
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+    Surface(
+        shape = RoundedCornerShape(12.dp),
+        color = if (isLow) MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.35f)
+        else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Filled.Inventory2,
-                    contentDescription = null,
-                    modifier = Modifier.size(14.dp),
-                    tint = if (isLow) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
-                )
-                Spacer(Modifier.width(4.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Filled.Inventory2,
+                        contentDescription = null,
+                        modifier = Modifier.size(15.dp),
+                        tint = if (isLow) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(Modifier.width(6.dp))
+                    Text(
+                        text = if (isLow) "Cảnh báo sắp hết: Còn $remainingQty/$total viên!" else "Số lượng còn lại: $remainingQty/$total viên",
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = if (isLow) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
+                    )
+                }
                 Text(
-                    text = if (isLow) "Cảnh báo sắp hết: Còn $remainingQty viên!" else "Số lượng còn lại: $remainingQty viên",
-                    style = MaterialTheme.typography.labelMedium,
+                    text = "${(progress * 100).toInt()}%",
+                    style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.Bold,
                     color = if (isLow) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
                 )
             }
+            Spacer(Modifier.height(6.dp))
+            LinearProgressIndicator(
+                progress = { progress },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(7.dp)
+                    .clip(RoundedCornerShape(3.5.dp)),
+                color = if (isLow) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary,
+                trackColor = if (isLow) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.surfaceVariant
+            )
         }
-        Spacer(Modifier.height(4.dp))
-        LinearProgressIndicator(
-            progress = { progress },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(6.dp)
-                .clip(RoundedCornerShape(3.dp)),
-            color = if (isLow) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary,
-            trackColor = if (isLow) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.surfaceContainerHighest
-        )
     }
 }
 

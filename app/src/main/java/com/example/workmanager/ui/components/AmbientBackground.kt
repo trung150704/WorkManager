@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun AmbientBackground(
@@ -32,21 +33,28 @@ fun AmbientBackground(
         label = "ambient_offset"
     )
 
-    val primaryContainer = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.25f)
-    val tertiaryContainer = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.20f)
+    val primaryContainer = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f)
+    val secondaryContainer = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f)
     val surfaceColor = MaterialTheme.colorScheme.background
 
-    val brush = Brush.radialGradient(
-        colors = listOf(primaryContainer, tertiaryContainer, surfaceColor),
+    val brush1 = Brush.radialGradient(
+        colors = listOf(primaryContainer, Color.Transparent),
         center = Offset(offsetAnim, offsetAnim / 2),
-        radius = 1200f
+        radius = 1000f
+    )
+
+    val brush2 = Brush.radialGradient(
+        colors = listOf(secondaryContainer, Color.Transparent),
+        center = Offset(800f - offsetAnim / 2, 1200f - offsetAnim),
+        radius = 900f
     )
 
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(surfaceColor)
-            .background(brush)
+            .background(brush1)
+            .background(brush2)
     ) {
         content()
     }

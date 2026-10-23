@@ -145,6 +145,11 @@ class ReminderEditViewModel @Inject constructor(
         }
 
         val old = original
+        val initialQty = if (isMedicine && qty != null) {
+            val oldInitial = old?.initialQty
+            if (oldInitial != null && qty <= oldInitial) oldInitial else qty
+        } else null
+
         val entity = ReminderEntity(
             id = old?.id ?: 0,
             title = s.title.trim(),
@@ -157,6 +162,7 @@ class ReminderEditViewModel @Inject constructor(
             endDate = end?.toEpochDay(),
             dosage = if (isMedicine) s.dosage.trim().ifEmpty { null } else null,
             remainingQty = if (isMedicine) qty else null,
+            initialQty = initialQty,
             isActive = old?.isActive ?: true,
             createdAt = old?.createdAt ?: System.currentTimeMillis()
         )

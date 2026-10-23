@@ -22,11 +22,11 @@ class WorkManagerReminderScheduler @Inject constructor(
     private val workManager by lazy { WorkManager.getInstance(context) }
 
     override fun schedule(reminder: ReminderEntity) {
-        enqueue(reminder, System.currentTimeMillis(), ExistingWorkPolicy.REPLACE)
+        enqueue(reminder, System.currentTimeMillis())
     }
 
     override fun scheduleNext(reminder: ReminderEntity, after: Long) {
-        enqueue(reminder, after, ExistingWorkPolicy.APPEND_OR_REPLACE)
+        enqueue(reminder, after)
     }
 
     override fun snooze(reminder: ReminderEntity, scheduledTime: Long, delayMillis: Long) {
@@ -50,10 +50,10 @@ class WorkManagerReminderScheduler @Inject constructor(
         workManager.cancelUniqueWork(snoozeName(reminderId))
     }
 
-    private fun enqueue(reminder: ReminderEntity, from: Long, policy: ExistingWorkPolicy) {
+    private fun enqueue(reminder: ReminderEntity, from: Long) {
         val trigger = ReminderTimeUtils.computeNextTrigger(reminder, from)
         if (trigger == null) {
-            if (policy == ExistingWorkPolicy.REPLACE) cancel(reminder.id)
+            cancel(reminder.id)
             Log.d(TAG, "id=${reminder.id}: không còn lần nhắc nào")
             return
         }
@@ -70,8 +70,8 @@ class WorkManagerReminderScheduler @Inject constructor(
             .addTag(TAG_ALL)
             .build()
 
-        workManager.enqueueUniqueWork(uniqueName(reminder.id), policy, request)
-        Log.d(TAG, "id=${reminder.id}: hẹn sau ${delay / 1000}s (lúc $trigger), policy=$policy")
+        workManager.enqueueUniqueWork(uniqueName(reminder.id), ExistingWorkPolicy.REPLACE, request)
+        Log.d(TAG, "id=${reminder.id}: hẹn sau ${delay / 1000}s (lúc $trigger), policy=REPLACE")
     }
 
     private fun uniqueName(id: Long) = "reminder_$id"

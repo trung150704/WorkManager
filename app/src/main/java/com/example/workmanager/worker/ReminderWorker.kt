@@ -34,12 +34,13 @@ class ReminderWorker @AssistedInject constructor(
         }
         val lateMs = System.currentTimeMillis() - scheduledTime
         Log.d(TAG, "Nhắc id=${reminder.id} snooze=$isSnooze, trễ ${lateMs}ms so với dự kiến")
-        notificationHelper.show(reminder, scheduledTime)
 
-        // Nhắc lại (snooze) chỉ hiện thông báo, chuỗi chính vẫn chạy độc lập
+        // Đặt lần kế tiếp TRƯỚC khi hiện thông báo: nếu tiến trình bị kill giữa chừng
+        // thì chuỗi nhắc vẫn không bị đứt. Snooze chỉ hiện thông báo, chuỗi chính chạy độc lập.
         if (!isSnooze) {
             scheduler.scheduleNext(reminder, maxOf(System.currentTimeMillis(), scheduledTime))
         }
+        notificationHelper.show(reminder, scheduledTime)
         return Result.success()
     }
 

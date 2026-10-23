@@ -11,7 +11,7 @@ Xem tài liệu review chi tiết cho đội ngũ phát triển tại: **[PROJEC
 - **Theo dõi kho thuốc & Cảnh báo sắp hết**: Tự động trừ số lượng thuốc khi chọn "Đã uống" từ thông báo và đưa ra cảnh báo khi còn $\le 3$ viên.
 - **Tương tác nhanh qua Thông báo**: Các nút hành động *Đã uống*, *Hoàn thành*, *Hoãn 10 phút*, *Bỏ qua* ngay trên thanh thông báo.
 - **Thống kê & Nhớ nhật ký**: Biểu đồ tuần tính tỷ lệ tuân thủ % và theo dõi lịch sử tương tác.
-- **Tự động đối soát & Tự khôi phục lịch**: Tác vụ ngầm 24h đánh dấu lần bỏ lỡ (`MISSED`) và `BootReceiver` tự đặt lại lịch khi khởi động lại máy.
+- **Tự động đối soát & Tự khôi phục lịch**: Tác vụ ngầm 12h đánh dấu lần bỏ lỡ (`MISSED`) và `BootReceiver` tự đặt lại lịch khi khởi động lại máy.
 
 ## 🛠 Công nghệ sử dụng
 - **Kotlin**, **Jetpack Compose**, **Material 3**

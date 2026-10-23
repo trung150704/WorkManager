@@ -11,7 +11,7 @@ import com.example.workmanager.domain.util.ReminderTimeUtils
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
-/** Chạy mỗi 24h: ghi MISSED cho lần quên và đặt lại lịch bị mất. */
+/** Chạy mỗi 12h: ghi MISSED cho lần quên và đặt lại lịch bị mất. */
 @HiltWorker
 class ReconcileWorker @AssistedInject constructor(
     @Assisted context: Context,

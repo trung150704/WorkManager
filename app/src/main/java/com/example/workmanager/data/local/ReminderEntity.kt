@@ -20,6 +20,7 @@ data class ReminderEntity(
     val endDate: Long? = null,
     val dosage: String? = null,
     val remainingQty: Int? = null,
+    val initialQty: Int? = null,
     val isActive: Boolean = true,
     val createdAt: Long = System.currentTimeMillis()
 )

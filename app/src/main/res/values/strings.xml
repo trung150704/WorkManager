@@ -79,4 +79,9 @@
     <string name="battery_help_message">Một số máy (Xiaomi, Oppo, Vivo, Huawei, Samsung) tự tắt ứng dụng chạy nền để tiết kiệm pin, khiến nhắc nhở bị trễ hoặc không hiện.\n\n1. Bấm "Mở cài đặt pin" và chọn "Không hạn chế" / "Cho phép chạy nền" cho ứng dụng này.\n2. Nếu máy có mục "Tự khởi động" (Autostart), hãy bật nó.</string>
     <string name="battery_help_open">Mở cài đặt pin</string>
     <string name="battery_help_icon">Hướng dẫn pin</string>
+
+    <string name="notif_denied_title">Chưa bật thông báo</string>
+    <string name="notif_denied_message">Không có quyền thông báo thì ứng dụng không thể nhắc bạn đúng giờ. Hãy bật thông báo trong Cài đặt.</string>
+    <string name="open_settings">Mở Cài đặt</string>
+    <string name="later">Để sau</string>
 </resources>

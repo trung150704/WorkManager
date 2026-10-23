@@ -24,7 +24,10 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
-        Room.databaseBuilder(context, AppDatabase::class.java, "nhacviec.db").build()
+        Room.databaseBuilder(context, AppDatabase::class.java, "nhacviec.db")
+            .addMigrations(AppDatabase.MIGRATION_1_2)
+            .fallbackToDestructiveMigrationOnDowngrade()
+            .build()
 
     @Provides
     fun provideReminderDao(db: AppDatabase): ReminderDao = db.reminderDao()
